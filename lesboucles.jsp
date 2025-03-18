@@ -78,7 +78,7 @@
     <title>Exercices de motifs</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
-        pre { text-align: left; display: inline-block; background: #f4f4f4; padding: 10px; border-radius: 5px; }
+        .pattern-container { text-align: left; display: inline-block; background: #f4f4f4; padding: 10px; border-radius: 5px; white-space: pre-wrap; font-family: monospace; }
     </style>
 </head>
 <body>
@@ -94,7 +94,7 @@
             let output = "";
 
             function addPattern(title, pattern) {
-                output += `<h2>${title}</h2><pre>${pattern}</pre>`;
+                output += `<h2>${title}</h2><div class='pattern-container'>${pattern}</div>`;
             }
 
             // Exercice 1 : Carré d'étoiles
@@ -114,18 +114,18 @@
 
             // Exercice 4 : Triangle rectangle droite
             let rightTriangle = "";
-            for (let i = 1; i <= n; i++) rightTriangle += " ".repeat(n - i) + "*".repeat(i) + "\n";
+            for (let i = 1; i <= n; i++) rightTriangle += "&nbsp;".repeat(n - i) + "*".repeat(i) + "\n";
             addPattern("Triangle rectangle droite", rightTriangle);
 
             // Exercice 5 : Triangle isocèle
             let isosceles = "";
-            for (let i = 1; i <= n; i++) isosceles += " ".repeat(n - i) + "*".repeat(i) + "\n";
+            for (let i = 1; i <= n; i++) isosceles += "&nbsp;".repeat(n - i) + "*".repeat(i) + "\n";
             addPattern("Triangle isocèle", isosceles);
 
             // Exercice 6 : Demi-losange
             let halfDiamond = "";
-            for (let i = 1; i <= n; i++) halfDiamond += " ".repeat(n - i) + "*".repeat(i) + "\n";
-            for (let i = n; i > 0; i--) halfDiamond += " ".repeat(n - i) + "*".repeat(i) + "\n";
+            for (let i = 1; i <= n; i++) halfDiamond += "&nbsp;".repeat(n - i) + "*".repeat(i) + "\n";
+            for (let i = n; i > 0; i--) halfDiamond += "&nbsp;".repeat(n - i) + "*".repeat(i) + "\n";
             addPattern("Demi-losange", halfDiamond);
 
             // Exercice 7 : Table de multiplication
