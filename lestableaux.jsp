@@ -1,50 +1,142 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>Les tableaux</title>
+    <title>Les tableaux</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .result-container { text-align: left; display: inline-block; background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; margin: 10px 0; }
+        .input-group { margin-bottom: 10px; }
+    </style>
 </head>
-<body bgcolor=white>
-<h1>Exercices sur les tableaux</h1>
-<form action="#" method="post">
-    <p>Saisir au minimu 3 chiffres à la suite, exemple : 6 78 15 <input type="text" id="inputValeur" name="chaine">
-    <p><input type="submit" value="Afficher">
-</form>
-<%-- Récupération des valeurs --%>
-    <% String chaine = request.getParameter("chaine"); %>
+<body>
+    <h1>Exercices sur les tableaux</h1>
     
-    <% if (chaine != null) { %>
+    <form action="#" method="post">
+        <div class="input-group">
+            <label for="chaine">Saisir au minimum 3 chiffres à la suite (ex: 6 78 15) :</label>
+            <input type="text" id="chaine" name="chaine">
+        </div>
+        <input type="submit" value="Afficher">
+    </form>
 
-    <%-- Division de la chaîne de chiffres séparés par des espaces --%>
-    <% String[] tableauDeChiffres = chaine.split("\\s+"); %>
-    <p>La tableau contient <%= tableauDeChiffres.length %> valeurs</br>
-    Chiffre 1 : <%= Integer.parseInt(tableauDeChiffres[0]) %></br>
-    Chiffre 2 : <%= Integer.parseInt(tableauDeChiffres[1]) %></br>
-    Chiffre 3 : <%= Integer.parseInt(tableauDeChiffres[2]) %></p>
-    
-<h2>Exercice 1 : La carré de la première valeur</h2>
-<p>Ecrire un programme afin d'afficher le carré de la première valeur</p>
+    <%
+        String chaine = request.getParameter("chaine");
 
-<h2>Exercice 2 : La somme des 2 premières valeurs</h2>
-<p>Ecrire un programme afin d'afficher la somme des deux premières valeurs</p>
+        if (chaine != null && !chaine.trim().isEmpty()) { 
+            String[] tableauDeChiffres = chaine.trim().split("\\s+");
+            int taille = tableauDeChiffres.length;
+            
+            if (taille >= 3) {
+                int[] nombres = new int[taille];
+                boolean erreur = false;
 
-<h2>Exercice 3 : La somme de toutes les valeurs</h2>
-<p>L'utilisateur peut à présent saisir autant de valeurs qu'il le souhaite dans champs de saisie.</br>
-Ecrire un programme afin de faire la somme de toutes les valeurs saisie par l'utilisateur</p>
+                // Conversion en entiers avec gestion des erreurs
+                for (int i = 0; i < taille; i++) {
+                    try {
+                        nombres[i] = Integer.parseInt(tableauDeChiffres[i]);
+                    } catch (NumberFormatException e) {
+                        erreur = true;
+                        break;
+                    }
+                }
 
-<h2>Exercice 4 : La valeur maximum</h2>
-<p>Ecrire un programme pour afficher la valeur maximale saisie par l'utilisateur</p>
+                if (!erreur) {
+    %>
 
-<h2>Exercice 5 : La valeur minimale</h2>
-<p>Ecrire un programme pour afficher la valeur minimale saisie par l'utilisateur</p>
+    <h2>Informations générales</h2>
+    <div class="result-container">
+        <p>Votre tableau contient <strong><%= taille %></strong> valeurs.</p>
+        <ul>
+            <% for (int i = 0; i < taille; i++) { %>
+                <li>Chiffre <%= (i + 1) %> : <strong><%= nombres[i] %></strong></li>
+            <% } %>
+        </ul>
+    </div>
 
-<h2>Exercice 6 : La valeur le plus proche de 0</h2>
-<p>Trouvez la valeur la plus proche de 0 (chiffres positifs ou négatifs)</p>
+    <h2>Exercice 1 : Carré de la première valeur</h2>
+    <div class="result-container">
+        <p>Le carré de <%= nombres[0] %> est <strong><%= nombres[0] * nombres[0] %></strong></p>
+    </div>
 
-<h2>Exercice 7 : La valeur le plus proche de 0 (2° version)</h2>
-<p>Trouvez la valeur la plus proche de 0 (chiffres positifs ou négatifs)</p>
-<p>En cas d'égalité entre un chiffre positif et négatif, affichez le chiffre positif</p>
+    <h2>Exercice 2 : Somme des 2 premières valeurs</h2>
+    <div class="result-container">
+        <p>La somme de <%= nombres[0] %> et <%= nombres[1] %> est <strong><%= nombres[0] + nombres[1] %></strong></p>
+    </div>
 
-<% } %>
-<p><a href="index.html">Retour au sommaire</a></p>
+    <h2>Exercice 3 : Somme de toutes les valeurs</h2>
+    <div class="result-container">
+        <%
+            int sommeTotale = 0;
+            for (int num : nombres) {
+                sommeTotale += num;
+            }
+        %>
+        <p>La somme totale des valeurs est <strong><%= sommeTotale %></strong></p>
+    </div>
+
+    <h2>Exercice 4 : Valeur maximale</h2>
+    <div class="result-container">
+        <%
+            int max = nombres[0];
+            for (int num : nombres) {
+                if (num > max) max = num;
+            }
+        %>
+        <p>La valeur maximale est <strong><%= max %></strong></p>
+    </div>
+
+    <h2>Exercice 5 : Valeur minimale</h2>
+    <div class="result-container">
+        <%
+            int min = nombres[0];
+            for (int num : nombres) {
+                if (num < min) min = num;
+            }
+        %>
+        <p>La valeur minimale est <strong><%= min %></strong></p>
+    </div>
+
+    <h2>Exercice 6 : Valeur la plus proche de 0</h2>
+    <div class="result-container">
+        <%
+            int procheDeZero = nombres[0];
+            for (int num : nombres) {
+                if (Math.abs(num) < Math.abs(procheDeZero)) {
+                    procheDeZero = num;
+                }
+            }
+        %>
+        <p>La valeur la plus proche de 0 est <strong><%= procheDeZero %></strong></p>
+    </div>
+
+    <h2>Exercice 7 : Valeur la plus proche de 0 (priorité au positif)</h2>
+    <div class="result-container">
+        <%
+            int procheZeroPositif = nombres[0];
+            for (int num : nombres) {
+                if (Math.abs(num) < Math.abs(procheZeroPositif) || 
+                    (Math.abs(num) == Math.abs(procheZeroPositif) && num > 0)) {
+                    procheZeroPositif = num;
+                }
+            }
+        %>
+        <p>La valeur la plus proche de 0 (positif en cas d'égalité) est <strong><%= procheZeroPositif %></strong></p>
+    </div>
+
+    <% 
+                } else { // Gestion des erreurs de saisie 
+    %>
+        <p style="color: red;">Erreur : Veuillez entrer uniquement des nombres séparés par des espaces.</p>
+    <%
+                }
+            } else { // Si l'utilisateur entre moins de 3 valeurs
+    %>
+        <p style="color: red;">Erreur : Veuillez entrer au moins 3 chiffres.</p>
+    <%
+            }
+        }
+    %>
+
+    <p><a href="index.html">Retour au sommaire</a></p>
 </body>
 </html>
