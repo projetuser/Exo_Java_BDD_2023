@@ -70,90 +70,72 @@
 </body>
 </html>
 
-import java.util.Scanner;
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices de motifs</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        pre { text-align: left; display: inline-block; background: #f4f4f4; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Exercices de motifs en étoiles</h1>
+    <label for="numberInput">Entrez une valeur :</label>
+    <input type="number" id="numberInput" min="1" value="5">
+    <button onclick="generatePatterns()">Générer</button>
+    <div id="output"></div>
 
-public class ExerciceJava {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Entrez une valeur : ");
-        int n = scanner.nextInt();
+    <script>
+        function generatePatterns() {
+            let n = parseInt(document.getElementById('numberInput').value);
+            let output = "";
 
-        // Exercice 1 : Carré d'étoiles
-        System.out.println("\nCarré d'étoiles :");
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print("*");
+            function addPattern(title, pattern) {
+                output += `<h2>${title}</h2><pre>${pattern}</pre>`;
             }
-            System.out.println();
-        }
 
-        // Exercice 2 : Triangle rectangle gauche
-        System.out.println("\nTriangle rectangle gauche :");
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j < i; j++) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
+            // Exercice 1 : Carré d'étoiles
+            let square = "";
+            for (let i = 0; i < n; i++) square += "*".repeat(n) + "\n";
+            addPattern("Carré d'étoiles", square);
 
-        // Exercice 3 : Triangle rectangle inversé
-        System.out.println("\nTriangle rectangle inversé :");
-        for (int i = n; i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
+            // Exercice 2 : Triangle rectangle gauche
+            let leftTriangle = "";
+            for (let i = 1; i <= n; i++) leftTriangle += "*".repeat(i) + "\n";
+            addPattern("Triangle rectangle gauche", leftTriangle);
 
-        // Exercice 4 : Triangle rectangle aligné à droite
-        System.out.println("\nTriangle rectangle droite :");
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j < n - i; j++) {
-                System.out.print(" ");
-            }
-            for (int j = 0; j < i; j++) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
+            // Exercice 3 : Triangle rectangle inversé
+            let invertedTriangle = "";
+            for (let i = n; i > 0; i--) invertedTriangle += "*".repeat(i) + "\n";
+            addPattern("Triangle rectangle inversé", invertedTriangle);
 
-        // Exercice 5 : Triangle isocèle
-        System.out.println("\nTriangle isocèle :");
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j < n - i; j++) {
-                System.out.print(" ");
-            }
-            for (int j = 0; j < i; j++) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
+            // Exercice 4 : Triangle rectangle droite
+            let rightTriangle = "";
+            for (let i = 1; i <= n; i++) rightTriangle += " ".repeat(n - i) + "*".repeat(i) + "\n";
+            addPattern("Triangle rectangle droite", rightTriangle);
 
-        // Exercice 6 : Demi losange
-        System.out.println("\nDemi-losange :");
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j < n - i; j++) {
-                System.out.print(" ");
-            }
-            for (int j = 0; j < i; j++) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
-        for (int i = n; i > 0; i--) {
-            for (int j = 0; j < n - i; j++) {
-                System.out.print(" ");
-            }
-            for (int j = 0; j < i; j++) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
+            // Exercice 5 : Triangle isocèle
+            let isosceles = "";
+            for (let i = 1; i <= n; i++) isosceles += " ".repeat(n - i) + "*".repeat(i) + "\n";
+            addPattern("Triangle isocèle", isosceles);
 
-        // Exercice 7 : Table de multiplication
-        System.out.println("\nTable de multiplication de " + n + " :");
-        for (int i = 1; i <= 10; i++) {
-            System.out.println(n + " x " + i + " = " + (n * i));
+            // Exercice 6 : Demi-losange
+            let halfDiamond = "";
+            for (let i = 1; i <= n; i++) halfDiamond += " ".repeat(n - i) + "*".repeat(i) + "\n";
+            for (let i = n; i > 0; i--) halfDiamond += " ".repeat(n - i) + "*".repeat(i) + "\n";
+            addPattern("Demi-losange", halfDiamond);
+
+            // Exercice 7 : Table de multiplication
+            let multiplicationTable = "";
+            for (let i = 1; i <= 10; i++) multiplicationTable += `${n} x ${i} = ${n * i}\n`;
+            addPattern("Table de multiplication", multiplicationTable);
+
+            document.getElementById("output").innerHTML = output;
         }
-    }
-}
+    </script>
+</body>
+</html>
+
