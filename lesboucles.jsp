@@ -69,3 +69,91 @@
 <p><a href="index.html">Retour au sommaire</a></p>
 </body>
 </html>
+
+import java.util.Scanner;
+
+public class ExerciceJava {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Entrez une valeur : ");
+        int n = scanner.nextInt();
+
+        // Exercice 1 : Carré d'étoiles
+        System.out.println("\nCarré d'étoiles :");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        // Exercice 2 : Triangle rectangle gauche
+        System.out.println("\nTriangle rectangle gauche :");
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        // Exercice 3 : Triangle rectangle inversé
+        System.out.println("\nTriangle rectangle inversé :");
+        for (int i = n; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        // Exercice 4 : Triangle rectangle aligné à droite
+        System.out.println("\nTriangle rectangle droite :");
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < n - i; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        // Exercice 5 : Triangle isocèle
+        System.out.println("\nTriangle isocèle :");
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < n - i; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        // Exercice 6 : Demi losange
+        System.out.println("\nDemi-losange :");
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < n - i; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+        for (int i = n; i > 0; i--) {
+            for (int j = 0; j < n - i; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        // Exercice 7 : Table de multiplication
+        System.out.println("\nTable de multiplication de " + n + " :");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(n + " x " + i + " = " + (n * i));
+        }
+    }
+}
