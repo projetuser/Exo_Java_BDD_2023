@@ -23,9 +23,11 @@
     <h2>Exercice 1 : Carré d'étoiles</h2>
     <div class="pattern-container">
         <% for (int i = 0; i < n; i++) { %>
-            <% for (int j = 0; j < n; j++) { %>
-                *
-            <% } %>
+            <%
+                for (int j = 0; j < n; j++) {
+                    out.print("* ");
+                }
+            %>
             <br>
         <% } %>
     </div>
@@ -33,39 +35,49 @@
     <h2>Exercice 2 : Triangle rectangle gauche</h2>
     <div class="pattern-container">
         <% for (int i = 1; i <= n; i++) { %>
-            <% for (int j = 0; j < i; j++) { %>
-                *
-            <% } %>
+            <%
+                for (int j = 0; j < i; j++) {
+                    out.print("* ");
+                }
+            %>
             <br>
         <% } %>
     </div>
-    
+
     <h2>Exercice 3 : Triangle rectangle inversé</h2>
     <div class="pattern-container">
         <% for (int i = n; i > 0; i--) { %>
-            <% for (int j = 0; j < i; j++) { %>
-                *
-            <% } %>
+            <%
+                for (int j = 0; j < i; j++) {
+                    out.print("* ");
+                }
+            %>
             <br>
         <% } %>
     </div>
-    
+
     <h2>Exercice 4 : Triangle rectangle droite</h2>
     <div class="pattern-container">
         <% for (int i = 1; i <= n; i++) { %>
-            <% for (int j = 0; j < n - i; j++) { %>&nbsp;<% } %>
-            <% for (int j = 0; j < i; j++) { %>*<% } %>
+            <%
+                for (int j = 0; j < n - i; j++) {
+                    out.print("&nbsp;&nbsp;");
+                }
+                for (int j = 0; j < i; j++) {
+                    out.print("* ");
+                }
+            %>
             <br>
         <% } %>
     </div>
-    
+
     <h2>Exercice 7 : Table de multiplication</h2>
     <div class="pattern-container">
         <% for (int i = 1; i <= 10; i++) { %>
             <%= n %> x <%= i %> = <%= n * i %><br>
         <% } %>
     </div>
-    
+
     <% } %>
     <p><a href="index.html">Retour au sommaire</a></p>
 </body>
