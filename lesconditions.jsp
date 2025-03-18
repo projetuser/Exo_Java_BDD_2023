@@ -23,7 +23,7 @@
         </div>
 
         <div class="input-group">
-            <label for="valeur3">Saisir la valeur 3 (pour Exercice 1) :</label>
+            <label for="valeur3">Saisir la valeur 3 :</label>
             <input type="text" id="valeur3" name="valeur3">
         </div>
 
