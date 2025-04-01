@@ -1,10 +1,8 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<%@ page import="java.util.List, java.util.ArrayList" %>
-<%@ page import="com.todo.Task" %>
 <%
-    List<Task> tasks = (List<Task>) session.getAttribute("tasks");
+    java.util.List<com.todo.Task> tasks = (java.util.List<com.todo.Task>) session.getAttribute("tasks");
     if (tasks == null) {
-        tasks = new ArrayList<>();
+        tasks = new java.util.ArrayList<>();
         session.setAttribute("tasks", tasks);
     }
 %>
@@ -22,7 +20,7 @@
             <th>Statut</th>
             <th>Actions</th>
         </tr>
-        <% for (Task task : tasks) { %>
+        <% for (com.todo.Task task : tasks) { %>
         <tr>
             <td><%= task.getTitle() %></td>
             <td><%= task.getDescription() %></td>
