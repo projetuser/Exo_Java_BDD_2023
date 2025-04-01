@@ -28,7 +28,7 @@
     if (valeur != null && !valeur.isEmpty()) {
         MyClass tache = new MyClass(valeur);
 %>
-        <p>Nom de la tÃ¢che : <%= tache.nameTache %></p>
+        <p>Nom de la tache : <%= tache.nameTache %></p>
 <%
     }
 %>
