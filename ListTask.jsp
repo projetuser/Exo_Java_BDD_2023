@@ -1,5 +1,5 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.List, java.util.ArrayList" %>
 <%@ page import="com.todo.Task" %>
 <%
     List<Task> tasks = (List<Task>) session.getAttribute("tasks");
