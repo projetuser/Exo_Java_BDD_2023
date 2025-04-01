@@ -1,42 +1,83 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<%
-    java.util.List<com.todo.Task> tasks = (java.util.List<com.todo.Task>) session.getAttribute("tasks");
-    if (tasks == null) {
-        tasks = new java.util.ArrayList<>();
-        session.setAttribute("tasks", tasks);
-    }
-%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+
 <html>
 <head>
     <title>Liste des Tâches</title>
 </head>
-<body>
-    <h1>Liste des Tâches</h1>
+<body bgcolor="white">
+    <h1>Gérer vos Tâches</h1>
+
+    <!-- Formulaire pour ajouter une tâche -->
+    <h2>Ajouter une nouvelle tâche</h2>
+    <form action="taches.jsp" method="post">
+        <label for="titre">Titre de la tâche : </label>
+        <input type="text" id="titre" name="titre" required>
+        <br>
+        <label for="description">Description de la tâche : </label>
+        <input type="text" id="description" name="description" required>
+        <br>
+        <input type="submit" value="Ajouter la tâche">
+    </form>
+
+    <% 
+        // Déclaration de la classe Task (tâche)
+        class Task {
+            private String titre;
+            private String description;
+
+            public Task(String titre, String description) {
+                this.titre = titre;
+                this.description = description;
+            }
+
+            public String getTitre() {
+                return titre;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+        }
+
+        // Vérifier si la liste de tâches existe déjà dans la session
+        ArrayList<Task> taches = (ArrayList<Task>) session.getAttribute("taches");
+
+        // Si la liste de tâches n'existe pas, on l'initialise
+        if (taches == null) {
+            taches = new ArrayList<Task>();
+            session.setAttribute("taches", taches);
+        }
+
+        // Traitement du formulaire d'ajout de tâche
+        String titre = request.getParameter("titre");
+        String description = request.getParameter("description");
+
+        if (titre != null && description != null && !titre.isEmpty() && !description.isEmpty()) {
+            Task newTask = new Task(titre, description);
+            taches.add(newTask);  // Ajouter la tâche à la liste
+        }
+    %>
+
+    <!-- Affichage des tâches -->
+    <h2>Liste des Tâches</h2>
     <table border="1">
         <tr>
             <th>Titre</th>
             <th>Description</th>
-            <th>Date d'échéance</th>
-            <th>Statut</th>
-            <th>Actions</th>
         </tr>
-        <% for (com.todo.Task task : tasks) { %>
+        <% 
+            // Afficher chaque tâche de la liste
+            for (Task task : taches) {
+        %>
         <tr>
-            <td><%= task.getTitle() %></td>
+            <td><%= task.getTitre() %></td>
             <td><%= task.getDescription() %></td>
-            <td><%= task.getDueDate() %></td>
-            <td><%= task.isCompleted() ? "Terminée" : "En cours" %></td>
-            <td>
-                <form action="TaskServlet" method="post">
-                    <input type="hidden" name="title" value="<%= task.getTitle() %>">
-                    <input type="submit" name="action" value="Terminer">
-                    <input type="submit" name="action" value="Supprimer">
-                </form>
-            </td>
         </tr>
-        <% } %>
+        <% 
+            }
+        %>
     </table>
-    <br>
-    <a href="addTask.jsp">Ajouter une tâche</a>
+
 </body>
 </html>
