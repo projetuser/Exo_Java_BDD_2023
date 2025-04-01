@@ -2,48 +2,72 @@
 <%@ page import="java.util.ArrayList, java.util.HashMap" %>
 
 <%
-    // Initialisation de la liste des tâches dans la session
+    // Récupérer la liste des tâches depuis la session
     ArrayList<HashMap<String, String>> taches = (ArrayList<HashMap<String, String>>) session.getAttribute("taches");
 
     if (taches == null) {
         taches = new ArrayList<HashMap<String, String>>();
-        session.setAttribute("taches", taches);
     }
 
-    // Traitement du formulaire pour ajouter une nouvelle tâche
-    String titre = request.getParameter("titre");
-    String description = request.getParameter("description");
-    String dateEcheance = request.getParameter("dateEcheance");
+    // Suppression d'une tâche
+    String supprimerIndex = request.getParameter("supprimerIndex");
+    if (supprimerIndex != null) {
+        int index = Integer.parseInt(supprimerIndex);
+        if (index >= 0 && index < taches.size()) {
+            taches.remove(index);
+        }
+    }
 
-    if (titre != null && description != null && dateEcheance != null && !titre.isEmpty() && !description.isEmpty() && !dateEcheance.isEmpty()) {
-        HashMap<String, String> newTask = new HashMap<>();
-        newTask.put("titre", titre);
-        newTask.put("description", description);
-        newTask.put("dateEcheance", dateEcheance);
-        newTask.put("termine", "false");  // tâche non terminée par défaut
-        taches.add(newTask);  // Ajouter la tâche à la liste
+    // Marquer une tâche comme terminée
+    String terminerIndex = request.getParameter("terminerIndex");
+    if (terminerIndex != null) {
+        int index = Integer.parseInt(terminerIndex);
+        if (index >= 0 && index < taches.size()) {
+            HashMap<String, String> task = taches.get(index);
+            task.put("termine", "true");
+        }
     }
 %>
 
 <html>
 <head>
-    <title>Ajouter une tâche</title>
+    <title>Liste des Tâches</title>
 </head>
 <body bgcolor="white">
-    <h1>Ajouter une nouvelle tâche</h1>
+    <h1>Liste des Tâches</h1>
 
-    <form action="ajouterTache.jsp" method="post">
-        <label for="titre">Titre de la tâche :</label>
-        <input type="text" id="titre" name="titre" required>
-        <br>
-        <label for="description">Description de la tâche :</label>
-        <input type="text" id="description" name="description" required>
-        <br>
-        <label for="dateEcheance">Date d'échéance :</label>
-        <input type="date" id="dateEcheance" name="dateEcheance" required>
-        <br>
-        <input type="submit" value="Ajouter la tâche">
-    </form>
+    <% if (taches.isEmpty()) { %>
+        <p>Aucune tâche à afficher.</p>
+    <% } else { %>
+        <table border="1">
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Date d'échéance</th>
+                <th>Terminé</th>
+                <th>Actions</th>
+            </tr>
+            <% 
+                for (int i = 0; i < taches.size(); i++) {
+                    HashMap<String, String> task = taches.get(i);
+            %>
+            <tr>
+                <td><%= task.get("titre") %></td>
+                <td><%= task.get("description") %></td>
+                <td><%= task.get("dateEcheance") %></td>
+                <td><%= task.get("termine").equals("true") ? "Oui" : "Non" %></td>
+                <td>
+                    <% if (!task.get("termine").equals("true")) { %>
+                        <a href="afficherTaches.jsp?terminerIndex=<%= i %>">Marquer comme terminée</a>
+                    <% } %> |
+                    <a href="afficherTaches.jsp?supprimerIndex=<%= i %>">Supprimer</a>
+                </td>
+            </tr>
+            <% 
+                }
+            %>
+        </table>
+    <% } %>
 
     <br>
     <a href="index.jsp">Retour à l'accueil</a>
